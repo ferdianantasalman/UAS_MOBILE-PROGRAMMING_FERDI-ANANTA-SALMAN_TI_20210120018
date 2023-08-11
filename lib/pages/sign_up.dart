@@ -30,7 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     fontWeight: FontWeight.bold),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    Navigator.pushReplacementNamed(context, '/signin');
+                    Navigator.pushNamed(context, '/signin');
                   })
           ],
         ),
@@ -43,7 +43,7 @@ class _SignUpPageState extends State<SignUpPage> {
         padding: EdgeInsets.symmetric(vertical: 25),
         width: double.infinity,
         child: ElevatedButton(
-            onPressed: () => Navigator.pushReplacementNamed(context, '/signin'),
+            onPressed: () => Navigator.pushNamed(context, '/signin'),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 elevation: 5,

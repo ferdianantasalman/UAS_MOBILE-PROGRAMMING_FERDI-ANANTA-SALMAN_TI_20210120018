@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:uas_mobile_programming/pages/home_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -11,6 +12,40 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   bool? isRememberme = false;
+  final List<Map<String, String>> users = [
+    {'email': 'ferdi', 'password': '12345'},
+    {'email': 'ananta', 'password': '12345'},
+    // Tambahkan data user lainnya di sini
+  ];
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void _login() {
+    String username = emailController.text;
+    String password = passwordController.text;
+
+    String errorMessage = '';
+
+    bool isAuthenticated = false;
+    for (var user in users) {
+      if (user['email'] == username && user['password'] == password) {
+        isAuthenticated = true;
+        break;
+      }
+    }
+
+    if (isAuthenticated) {
+      setState(() {
+        errorMessage = '';
+      });
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      setState(() {
+        errorMessage = 'Username atau password salah';
+      });
+    }
+  }
 
   Widget btnSignUp() {
     return GestureDetector(
@@ -45,7 +80,7 @@ class _SignInPageState extends State<SignInPage> {
         padding: EdgeInsets.symmetric(vertical: 25),
         width: double.infinity,
         child: ElevatedButton(
-            onPressed: () => Navigator.pushReplacementNamed(context, '/home'),
+            onPressed: () => _login(),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 elevation: 5,
@@ -124,6 +159,7 @@ class _SignInPageState extends State<SignInPage> {
               ]),
           height: 60,
           child: TextField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(color: Colors.black26),
             decoration: InputDecoration(
@@ -164,6 +200,7 @@ class _SignInPageState extends State<SignInPage> {
               ]),
           height: 60,
           child: TextField(
+            controller: passwordController,
             obscureText: true,
             style: TextStyle(color: Colors.black26),
             decoration: InputDecoration(
